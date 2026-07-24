@@ -22,9 +22,6 @@ let body = document.querySelector('body');
       y: e.clientY,
       stagger: -0.0025,
       scale: i => 1 - i / 200
-      // scale (i, target) {
-      //   return 1 + (i * (2 / 200));
-      // } 
     });
   });
 
