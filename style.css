@@ -135,17 +135,6 @@
     animation:orbFloat 7s ease-in-out infinite;
   }
   @keyframes orbFloat{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-14px);}}
-  /* .hero-photo{
-    position:absolute;
-    top: 0;
-    left: -47px;
-    z-index:2;
-    border-radius:20px;overflow:hidden;
-    aspect-ratio:4/4;
-    display:flex;align-items:center;justify-content:center;
-    border-radius: 0 0 24px 24px;
-    height: 50vh;
-  } */
    .hero-photo{
     position:relative;z-index:2;
     border-radius:50%;overflow:hidden;
