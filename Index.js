@@ -1,32 +1,3 @@
-// Custom cursor
-
-let body = document.querySelector('body');
-  body.onclick = function(){
-    body.classList.toggle('dark-mode')
-  }
-
-  let cursor = document.querySelector('.cursor');
-  for (let i = 0; i < 200; i++) {
-    let circle = document.createElement('div');
-    circle.classList.add('circle');
-    cursor.appendChild(circle);
-  }
-  gsap.set(".circle",{
-    xPercent:-50,
-    yPercent:-50
-});
-
-  document.body.addEventListener('mousemove', (e) => {
-    gsap.to('.circle', {
-      x: e.clientX,
-      y: e.clientY,
-      stagger: -0.0025,
-      scale: i => 1 - i / 200
-    });
-  });
-
-
-
 // Nav scroll state
 const header = document.getElementById('siteHeader');
 const toTop = document.getElementById('toTop');
@@ -128,3 +99,68 @@ if (window.matchMedia('(min-width:1001px)').matches && heroVisual) {
     heroVisual.style.transform = `translate(${x*10}px, ${y*10}px)`;
   });
 }
+
+
+// contact form
+
+const form = document.getElementById('contactForm');
+const submitBtn = document.getElementById('submitBtn');
+const formView = document.getElementById('formView');
+const successView = document.getElementById('successView');
+const resetBtn = document.getElementById('resetBtn');
+
+function setError(fieldId, show){
+  const field = document.getElementById(fieldId);
+  const msg = document.querySelector('[data-error-for="' + fieldId + '"]');
+  if (field) field.classList.toggle('invalid', show);
+  if (msg) msg.classList.toggle('show', show);
+}
+function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+function validate(){
+  let valid = true;
+  const name = document.getElementById('name');
+  if (!name.value.trim()){ setError('name', true); valid = false; } else setError('name', false);
+  const email = document.getElementById('email');
+  if (!isValidEmail(email.value.trim())){ setError('email', true); valid = false; } else setError('email', false);
+  const message = document.getElementById('message');
+  if (!message.value.trim()){ setError('message', true); valid = false; } else setError('message', false);
+  return valid;
+}
+['name','email','message'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => setError(id, false));
+});
+
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  if (!validate()) return;
+  submitBtn.classList.add('loading');
+  submitBtn.disabled = true;
+
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(res => {
+    if (res.ok){
+      formView.style.display = 'none';
+      successView.classList.add('show');
+    } else {
+      throw new Error('Submission failed');
+    }
+  })
+  .catch(() => {
+    alert("Something went wrong sending your message. Please try again, or email me directly.");
+  })
+  .finally(() => {
+    submitBtn.classList.remove('loading');
+    submitBtn.disabled = false;
+  });
+});
+
+resetBtn.addEventListener('click', () => {
+  form.reset();
+  successView.classList.remove('show');
+  formView.style.display = 'block';
+});
