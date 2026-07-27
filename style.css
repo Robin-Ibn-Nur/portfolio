@@ -223,10 +223,18 @@
   /* ---------- PROJECTS ---------- */
   .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
   .proj-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface);transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s;}
-  .proj-card:hover{transform:translateY(-8px);box-shadow:0 24px 50px -20px rgba(0,0,0,.6);}
-  .proj-thumb{aspect-ratio:4/3;position:relative;overflow:hidden;background:linear-gradient(150deg,#16221b,#0a0f0d);}
-  .proj-thumb svg{width:100%;height:100%;transition:transform .6s cubic-bezier(.2,.8,.2,1);}
-  .proj-card:hover .proj-thumb svg{transform:scale(1.06);}
+  .proj-card:hover{transform:translateY(-8px);/*box-shadow:0 24px 50px -20px rgba(0,0,0,.6);*/ box-shadow:
+    0 20px 60px rgba(0,0,0,.35);}
+  .proj-thumb{position:relative;overflow:hidden;background:linear-gradient(150deg,#16221b,#0a0f0d);border-bottom:1px solid rgba(255,255,255,.05); height: 340px;}
+  /* .proj-thumb svg{width:100%;height:100%;transition:transform .6s cubic-bezier(.2,.8,.2,1);} */
+  .proj-thumb img{width:100%;min-height:100%;display:block;transform:translateY(0);transition:transform 8s cubic-bezier(.22,.61,.36,1);object-fit:cover;object-position:top;}
+  /* .proj-card:hover .proj-thumb svg{transform:scale(1.06);} */
+  .proj-card:hover .proj-thumb img{transform:translateY(calc(-100% + 340px));}
+  .proj-thumb::before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 70%,rgba(0,0,0,.45));z-index:2;pointer-events:none;}
+  .proj-thumb::after{content:"";position:absolute;top:0;left:-120%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);   transform:skewX(-25deg);transition:1s;}
+  .proj-card:hover .proj-thumb::after{left:180%;}
+  .proj-card:hover img{transform:scale(1.03)translateY(calc(-100% + 340px));}
+  .proj-card:hover{border-color:#1DB954; box-shadow: 0 0 25px rgba(0,170,80,.20),0 0 60px rgba(230,30,50,.15);}
   .proj-body{padding:22px;}
   .proj-tags{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
   .tag{font-size:11px;font-weight:600;padding:5px 10px;border-radius:100px;}

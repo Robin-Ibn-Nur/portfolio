@@ -1,3 +1,12 @@
+gsap.from(".proj-card",{
+
+    y:100,
+    duration:1,
+    stagger:.15,
+    ease:"power4.out"
+
+});
+
 // Nav scroll state
 const header = document.getElementById('siteHeader');
 const toTop = document.getElementById('toTop');
