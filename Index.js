@@ -1,6 +1,6 @@
 gsap.from(".proj-card",{
 
-    y:100,
+    // y:100,
     duration:1,
     stagger:.15,
     ease:"power4.out"
@@ -48,6 +48,23 @@ const io = new IntersectionObserver((entries) => {
   });
 }, {threshold:0.15});
 revealEls.forEach(el => io.observe(el));
+
+// Trusted by logos reveal
+const marquee = document.querySelector('.marquee-track');
+
+document.querySelectorAll('.marquee-track span').forEach(item => {
+
+    item.addEventListener('mouseenter', () => {
+        marquee.style.animationPlayState = 'paused';
+    });
+
+    item.addEventListener('mouseleave', () => {
+        marquee.style.animationPlayState = 'running';
+    });
+
+});
+
+
 
 // Counter animation
 function suffixFor(el){
